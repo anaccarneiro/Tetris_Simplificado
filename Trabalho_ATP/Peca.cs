@@ -43,6 +43,19 @@ namespace Trabalho_ATP
             this.forma = formaTemp;
         }
 
+        public void MoverEsquerda()
+        {
+
+        }
+        public void MoverDireita()
+        {
+
+        }
+        public void MoverBaixo()
+        {
+
+        }
+
         // SET
         public void setForma(char tipo)
         {
