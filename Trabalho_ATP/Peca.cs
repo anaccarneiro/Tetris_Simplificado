@@ -45,15 +45,24 @@ namespace Trabalho_ATP
 
         public void MoverEsquerda()
         {
-
+            if (this.posX <= 0)
+                return;
+            else
+                this.posX--;
         }
         public void MoverDireita()
         {
-
+            if (this.posX >= 10)
+                return;
+            else
+                this.posX++;
         }
         public void MoverBaixo()
         {
-
+            if (this.posY >= 20)
+                return;
+            else
+                this.posY++;
         }
 
         // SET
