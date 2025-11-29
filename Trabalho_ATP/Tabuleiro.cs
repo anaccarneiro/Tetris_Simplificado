@@ -25,9 +25,13 @@ namespace Trabalho_ATP
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    if (tabuleiro[i,j] == 0)
+                    if (tabuleiro[i, j] == 0)
                     {
-                        Console.Write(" ");
+                        Console.Write(" " + "\t");
+                    }
+                    else
+                    {
+                        Console.Write(tabuleiro[i,j] + "\t");
                     }
                 }
                 Console.WriteLine();
@@ -49,17 +53,17 @@ namespace Trabalho_ATP
                     }
                 }
             }
-        } 
+        }
         public void InserirPeca(Peca peca)
         {
             int[,] forma = peca.getForma();
-            peca.setPos(0,3);
+            peca.setPos(0, 3);
 
             for (int linhaT = 0; linhaT < 3; linhaT++)
             {
                 for (int colunaT = 3, colunaF = 0; colunaT < 6; colunaT++, colunaF++)
                 {
-                    tabuleiro[linhaT, colunaT] = forma[linhaT,colunaF];
+                    tabuleiro[linhaT, colunaT] = forma[linhaT, colunaF];
                 }
             }
         }
@@ -70,7 +74,6 @@ namespace Trabalho_ATP
         }
         public bool PodeInserir(Peca peca)
         {
-            int[,] forma = peca.getForma();
             int posX = peca.getPosX();
             int posY = peca.getPosY();
 
@@ -78,7 +81,7 @@ namespace Trabalho_ATP
             {
                 for (int coluna = posX; coluna < 3; coluna++)
                 {
-                    if (forma[linha, coluna] == 1)
+                    if (tabuleiro[linha, coluna] == 1)
                         return false;
                 }
             }
@@ -86,7 +89,37 @@ namespace Trabalho_ATP
         }
         public void VerificarLinhas()
         {
-            
+            for (int linha = 0; linha < 20; linha++)
+            {
+                bool linhaCheia = true;
+
+                for (int coluna = 0; coluna < 10; coluna++)
+                {
+                    if (tabuleiro[linha, coluna] == 0)
+                    {
+                        linhaCheia = false;
+                        break;
+                    }
+                }
+
+                if (linhaCheia)
+                {
+                    for (int l = linha; l > 0; l--)
+                    {
+                        for (int c = 0; c < 10; c++)
+                        {
+                            tabuleiro[l, c] = tabuleiro[l - 1, c];
+                        }
+                    }
+
+                    for (int c = 0; c < 10; c++)
+                    {
+                        tabuleiro[0, c] = 0;
+                    }
+
+                    linha--;
+                }
+            }
         }
     }
 }
