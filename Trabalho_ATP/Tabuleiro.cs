@@ -74,16 +74,15 @@ namespace Trabalho_ATP
             int posX = peca.getPosX();
             int posY = peca.getPosY();
 
-            for (int linha = posY; linha < 20; linha++)
+            for (int linha = posY; linha < 3; linha++)
             {
-                for (int coluna = posX; coluna < 10; coluna++)
+                for (int coluna = posX; coluna < 3; coluna++)
                 {
                     if (forma[linha, coluna] == 1)
                         return false;
-                    else
-                        return true;
                 }
             }
+            return true;
         }
         public void VerificarLinhas()
         {
