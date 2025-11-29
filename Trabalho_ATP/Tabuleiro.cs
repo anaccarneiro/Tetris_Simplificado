@@ -47,9 +47,18 @@ namespace Trabalho_ATP
                 }
             }
         } 
-        public void InserirPeca()
+        public void InserirPeca(Peca peca)
         {
+            int[,] forma = peca.getForma();
+            peca.setPos(0,3);
 
+            for (int linhaT = 0; linhaT < 3; linhaT++)
+            {
+                for (int colunaT = 3, colunaF = 0; colunaT < 6; colunaT++, colunaF++)
+                {
+                    tabuleiro[linhaT, colunaT] = forma[linhaT,colunaF];
+                }
+            }
         }
         public void Atualizar()
         {
