@@ -25,7 +25,10 @@ namespace Trabalho_ATP
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    Console.Write(tabuleiro[i, j]);
+                    if (tabuleiro[i,j] == 0)
+                    {
+                        Console.Write(" ");
+                    }
                 }
                 Console.WriteLine();
             }
@@ -60,17 +63,31 @@ namespace Trabalho_ATP
                 }
             }
         }
-        public void Atualizar()
+        public void Atualizar(Peca peca)
         {
-
+            InserirPeca(peca);
+            Renderizar();
         }
-        public void PodeInserir()
+        public bool PodeInserir(Peca peca)
         {
+            int[,] forma = peca.getForma();
+            int posX = peca.getPosX();
+            int posY = peca.getPosY();
 
+            for (int linha = posY; linha < 20; linha++)
+            {
+                for (int coluna = posX; coluna < 10; coluna++)
+                {
+                    if (forma[linha, coluna] == 1)
+                        return false;
+                    else
+                        return true;
+                }
+            }
         }
         public void VerificarLinhas()
         {
-
+            
         }
     }
 }
