@@ -6,7 +6,18 @@ namespace Trabalho_ATP
     {
         static void Main(string[] args)
         {
-            //criando repositório
+            Console.WriteLine("Digite o nome do jogador:");
+            string nome = Console.ReadLine();
+
+            Jogador jogador = new Jogador(nome);
+
+            Jogo jogo = new Jogo(jogador);
+
+            jogo.Iniciar();
+
+            Console.WriteLine("Jogo encerrado. Pontuação salva.");
+            Console.WriteLine("Pressione qualquer tecla para sair");
+            Console.ReadKey();
         }
     }
 }
