@@ -6,18 +6,20 @@ namespace Trabalho_ATP
     public class Jogo
     {
         private Jogador jogador;
-        private int[,] tabuleiro;
+        private Tabuleiro tabuleiro;   
+        private Peca pecaAtual;
         private bool jogoAtivo;
 
         public Jogo(Jogador jogador)
         {
             this.jogador = jogador;
-            tabuleiro = new int[20, 10];
+            tabuleiro = new Tabuleiro();
             jogoAtivo = true;
         }
 
         public void Iniciar()
         {
+
             while (jogoAtivo)
             {
                 Console.Clear();
@@ -41,7 +43,7 @@ namespace Trabalho_ATP
 
         private void ProcessarComando()
         {
-            ConsoleKeyInfo tecla = Console.ReadKey(true); // true = não mostrar no console
+            ConsoleKeyInfo tecla = Console.ReadKey(true); 
 
             switch (tecla.Key)
             {
@@ -69,6 +71,24 @@ namespace Trabalho_ATP
 
         private void AtualizarJogo()
         {
+            VerificarFimDeJogo();
         }
+
+        private void VerificarFimDeJogo()
+        {
+            Peca novaPeca = new Peca('T', 3, 0);
+
+            if (!tabuleiro.PodeInserir(novaPeca))
+            {
+                Console.WriteLine("Fim de jogo! Não foi possível inserir nova peça.");
+                jogoAtivo = false;
+            }
+            else
+            {
+                pecaAtual = novaPeca;
+                tabuleiro.InserirPeca(pecaAtual);
+            }
+        }
+
     }
 }
