@@ -10,20 +10,19 @@ namespace ConsoleApp1
 {
     public class Jogador
     {
-        public string nome { get; set; }
-        public int pontuacaoFinal { get; set; }
+        public string Nome { get; set; }
+        public int PontuacaoFinal { get; set; }
 
         public Jogador(string nome)
         {
-            this.nome = nome;
-            this.pontuacaoFinal = 0;
+            Nome = nome;
+            PontuacaoFinal = 0;
         }
 
         public void AdicionarPontos(int linhasEliminadas, int pontosDaPeca)
         {
             int pontosPorLinhas = CalcularPontosLinhas(linhasEliminadas);
-
-            pontuacaoFinal += pontosPorLinhas + pontosDaPeca;
+            PontuacaoFinal += pontosPorLinhas + pontosDaPeca;
         }
 
         private int CalcularPontosLinhas(int linhas)
@@ -42,8 +41,9 @@ namespace ConsoleApp1
         {
             using (StreamWriter sw = new StreamWriter(caminho, true))
             {
-                sw.WriteLine($"{nome}:{pontuacaoFinal}");
+                sw.WriteLine($"{Nome};{PontuacaoFinal}");
             }
         }
     }
+
 }
