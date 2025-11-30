@@ -19,9 +19,23 @@ namespace ConsoleApp1
             this.pontuacaoFinal = 0;
         }
 
-        public void AdicionarPontos(int pontos)
+        public void AdicionarPontos(int linhasEliminadas, int pontosDaPeca)
         {
-            pontuacaoFinal += pontos;
+            int pontosPorLinhas = CalcularPontosLinhas(linhasEliminadas);
+
+            pontuacaoFinal += pontosPorLinhas + pontosDaPeca;
+        }
+
+        private int CalcularPontosLinhas(int linhas)
+        {
+            switch (linhas)
+            {
+                case 1: return 100;
+                case 2: return 300;
+                case 3: return 500;
+                case 4: return 800;
+                default: return 0;
+            }
         }
 
         public void Salvar(string caminho)
