@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Trabalho_ATP
 {
     public class Jogador
     {

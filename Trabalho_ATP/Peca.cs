@@ -17,8 +17,7 @@ namespace Trabalho_ATP
             setPontos(tipo);
         }
 
-        // MÉTODOS
-        public void RotacionarAntiHorario()
+        public void RotacionarHorario()
         {
             int[,] formaTemp = new int[3, 3];
             for (int minF = 0, maxF = this.forma.GetLength(0) - 1; minF < this.forma.GetLength(0); minF++, maxF--)
@@ -30,7 +29,7 @@ namespace Trabalho_ATP
             }
             this.forma = formaTemp;
         }
-        public void RotacionarHorario()
+        public void RotacionarAntiHorario()
         {
             int[,] formaTemp = new int[3, 3];
             for (int minF = 0, maxF = this.forma.GetLength(0) - 1; minF < this.forma.GetLength(0); minF++, maxF--)
@@ -42,30 +41,16 @@ namespace Trabalho_ATP
             }
             this.forma = formaTemp;
         }
-
-        public void MoverEsquerda()
-        {
-            if (this.posX <= 0)
-                return;
-            else
-                this.posX--;
+        public void MoverEsquerda() { 
+            this.posX--;
         }
-        public void MoverDireita()
-        {
-            if (this.posX >= 10)
-                return;
-            else
-                this.posX++;
+        public void MoverDireita() { 
+            this.posX++;
         }
-        public void MoverBaixo()
-        {
-            if (this.posY >= 20)
-                return;
-            else
-                this.posY++;
+        public void MoverBaixo() { 
+            this.posY++;
         }
 
-        // SET
         public void setForma(char tipo)
         {
             if (tipo == 'I')
@@ -73,7 +58,7 @@ namespace Trabalho_ATP
             else if (tipo == 'T')
                 this.forma = new int[,] { { 1, 1, 1 }, { 0, 1, 0 }, { 0, 1, 0 } };
             else if (tipo == 'L')
-                this.forma = new int[,] { { 0, 1, 0 }, { 0, 1, 0 }, { 1, 1, 1 } };
+                this.forma = new int[,] { { 1, 0, 0 }, { 1, 0, 0 }, { 1, 1, 0 } };
         }
         public void setTipo(char tipo)
         {
@@ -93,7 +78,6 @@ namespace Trabalho_ATP
             else if (tipo == 'T')
                 this.pontos = 5;
         }
-        // GET
         public int[,] getForma()
         {
             return this.forma;

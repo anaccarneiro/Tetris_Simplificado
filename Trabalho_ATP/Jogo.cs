@@ -1,124 +1,128 @@
-﻿using ConsoleApp1;
-using System;
+﻿using System;
 
 namespace Trabalho_ATP
 {
     public class Jogo
     {
         private Jogador jogador;
-<<<<<<< HEAD
-        private int[,] tabuleiro;
-=======
-        private Tabuleiro tabuleiro;   
+        private Tabuleiro tabuleiro;
         private Peca pecaAtual;
->>>>>>> 197ddba4a148b99f8ed0b748ad7ada3e067afc16
         private bool jogoAtivo;
+        private Random random;
 
         public Jogo(Jogador jogador)
         {
             this.jogador = jogador;
-<<<<<<< HEAD
-            tabuleiro = new int[20, 10];
-            jogoAtivo = true;
-        }
-        public void Iniciar()
-        {
-=======
             tabuleiro = new Tabuleiro();
             jogoAtivo = true;
+            random = new Random();
         }
 
         public void Iniciar()
         {
+            GerarNovaPeca();
 
->>>>>>> 197ddba4a148b99f8ed0b748ad7ada3e067afc16
             while (jogoAtivo)
             {
-                Console.Clear();
-                ExibirTabuleiro();
-<<<<<<< HEAD
-                LerEntrada();
-=======
-
-                Console.WriteLine("Comandos: ← → ↓  a(rotacionar anti-horário)  h(rotacionar horário)  q(sair)");
-                Console.Write("Digite um comando: ");
-                string comando = Console.ReadLine();
+                tabuleiro.Renderizar();
+                Console.WriteLine($"Jogador: {jogador.Nome} | Pontos: {jogador.PontuacaoFinal}");
+                Console.WriteLine("Comandos: Setas (Mover) | A/H (Rotacionar) | Q (Sair)");
 
                 ProcessarComando();
->>>>>>> 197ddba4a148b99f8ed0b748ad7ada3e067afc16
-                AtualizarJogo();
             }
 
             jogador.Salvar("pontuacoes.txt");
-        }
-<<<<<<< HEAD
-        private void ExibirTabuleiro()
-        {
+            Console.WriteLine("Fim de Jogo!");
         }
 
-        private void LerEntrada()
+        private void GerarNovaPeca()
         {
-        }
+            int tipoNum = random.Next(0, 3);
+            char tipoChar = 'T';
 
-        private void AtualizarJogo()
-        {
-        }
-=======
+            if (tipoNum == 0) tipoChar = 'I';
+            else if (tipoNum == 1) tipoChar = 'L';
+            else if (tipoNum == 2) tipoChar = 'T';
 
-        private void ExibirTabuleiro()
-        {
+            pecaAtual = new Peca(tipoChar, 3, 0);
 
-        }
-
-        private void ProcessarComando()
-        {
-            ConsoleKeyInfo tecla = Console.ReadKey(true); 
-
-            switch (tecla.Key)
+            if (!tabuleiro.PodeInserir(pecaAtual))
             {
-                case ConsoleKey.LeftArrow:
-                    break;
-
-                case ConsoleKey.RightArrow:
-                    break;
-
-                case ConsoleKey.DownArrow:
-                    break;
-
-                case ConsoleKey.A:
-                    break;
-
-                case ConsoleKey.H:
-                    break;
-
-                case ConsoleKey.Q:
-                    jogoAtivo = false;
-                    break;
-            }
-        }
-
-
-        private void AtualizarJogo()
-        {
-            VerificarFimDeJogo();
-        }
-
-        private void VerificarFimDeJogo()
-        {
-            Peca novaPeca = new Peca('T', 3, 0);
-
-            if (!tabuleiro.PodeInserir(novaPeca))
-            {
-                Console.WriteLine("Fim de jogo! Não foi possível inserir nova peça.");
                 jogoAtivo = false;
+                Console.WriteLine("Game Over: Sem espaço para nova peça.");
             }
             else
             {
-                pecaAtual = novaPeca;
                 tabuleiro.InserirPeca(pecaAtual);
             }
         }
 
->>>>>>> 197ddba4a148b99f8ed0b748ad7ada3e067afc16
+        private void ProcessarComando()
+        {
+            ConsoleKeyInfo tecla = Console.ReadKey(true);
+
+            tabuleiro.Limpar(pecaAtual);
+
+            int oldX = pecaAtual.getPosX();
+            int oldY = pecaAtual.getPosY();
+            bool houveRotacao = false;
+
+            switch (tecla.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    pecaAtual.MoverEsquerda();
+                    break;
+                case ConsoleKey.RightArrow:
+                    pecaAtual.MoverDireita();
+                    break;
+                case ConsoleKey.DownArrow:
+                    pecaAtual.MoverBaixo();
+                    break;
+                case ConsoleKey.A:
+                    pecaAtual.RotacionarAntiHorario();
+                    houveRotacao = true;
+                    break;
+                case ConsoleKey.H:
+                    pecaAtual.RotacionarHorario();
+                    houveRotacao = true;
+                    break;
+                case ConsoleKey.Q:
+                    jogoAtivo = false;
+                    return;
+            }
+
+            if (tabuleiro.PodeInserir(pecaAtual))
+            {
+                tabuleiro.InserirPeca(pecaAtual);
+            }
+            else
+            {
+                if (houveRotacao)
+                {
+                    if (tecla.Key == ConsoleKey.A) pecaAtual.RotacionarHorario();
+                    else pecaAtual.RotacionarAntiHorario();
+                }
+                else
+                {
+                    pecaAtual.setPos(oldX, oldY);
+                }
+
+                tabuleiro.InserirPeca(pecaAtual);
+
+                if (tecla.Key == ConsoleKey.DownArrow)
+                {
+                    FixarPeca();
+                }
+            }
+        }
+
+        private void FixarPeca()
+        {
+            jogador.AdicionarPontos(0, pecaAtual.getPontos());
+
+            tabuleiro.VerificarLinhas(jogador);
+
+            GerarNovaPeca();
+        }
     }
 }
